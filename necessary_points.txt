@@ -1,0 +1,121 @@
+////////How to setup professional backend project//////////
+
+/////// While learning
+1. Take notes 
+2. Focus on concepts
+3. Ask questions
+4. Experiment independently
+5. Use tools like console.log for debugging
+6. Practice basics in parallel like CRUD apps: todolist, blog apps
+npm init : initializes node package manager (creates package.json)
+/////////////
+
+
+create public folder and create temp folder inside it
+.gitkeep: it keeps track of the empty folders 
+
+create gitignore
+gitignore: it will not push sensitive files and the files that are not ment to be seen
+you can search gitignore generator and can copy paste based on preferred language from there
+
+create .env
+.env: during production they are taken from system to make secure
+
+create source (src)
+src: contains all the work files 
+    create file inside src folder
+You can create through right click or simply goto terminal / bash
+    cd src
+    ls
+    touch app.js constants.js index.js
+
+JavaScipt has two types of importing: common js and module js 
+
+now change the package.json and add type: module.js to work according with module with consistency through the project
+
+when server file needs to be reload we have to start and stop the server , here we use nodemon
+nodemon: it restarts the server whenever file gets saved. (but we have to tell it.)
+goto scripts in package.json "scripts": "nodemon src/index.js
+
+difference between dependency and dev dependency: 
+dev dependency: used in the development, not used in the production 
+
+now create proper folder using professional structure in the source folder..
+goto src and create: 
+mkdir controllers
+(It would consist majorly functionalities)
+mkdir db
+(Here we write how to connect to the database)
+mkdir middlewares 
+(These are the codes that run in between request and response)
+mkdir models
+(defines structure of the data and how it interacts with the database)
+mkdir routes
+(defines the paths and endpoints of the application)
+mkdir utils
+(It contains reusable functionalities that performs common tasks)
+
+after that goto nodemon and install prettier from there
+vs code prettier is not recommended because while pushing the code in the git it causes so many conflicts.
+Ex: some may write semicolons other may not, spaces etc
+It tells which type of formatting we are using 
+
+after appearance of prettier we have to add some files from our side. 
+create .prettierrc
+
+create .prettierignore
+
+////////End of professional backend file folder structure setup///////////
+
+/////////////////DATABASE CONNECTION/////////////////////
+
+to enter into mongodb from the atlas we need two things:
+1. you op address must be allowed and you must have correct id and password  
+-in production grade we never say allow access from anywhere in the ip address 
+-in professional way ip address is added of that machine where you have all the backend codes   
+2. a string as well
+
+After that goto env
+then next step is to create database name in constants
+
+Database connection can be in 2 major ways:
+    -place all code in the index file and when index file loads then the function in which database code is written will get execute
+    -make db named file and write all function there and then import that file into the index file and then execute
+
+app.js will be through express and database connection will be through mongoose.
+
+install mongoose express dotenv packages
+
+goto index and import mongoose
+
+**********IMPORTTANT NOTE REGARDING DATABASE**************
+1. Always wrap code in the try catch method. Because when we try to acess database there might be problem or you can do promises
+2. "Database is always in another continent" it means when we talk to database it takes time which means always put async, await
+*******************************************************
+
+Using second approach create file in db folder.
+export that
+
+then import that in index.js
+
+As early as possible in your application import and configure dotenv 
+jati chado application load bho teti chado environment variable must be available 
+if we load first file we want to load environment variable in that specific file. 
+
+
+require('dotenv').config() place this in index.js
+but in consistent formatting
+
+also goto package.json and in scripts write experimental-json-module
+
+
+
+****** First install dependencies mongoose dotenv and express 
+create file in db folder.
+also you have to goto env and set port and mongodb uri
+then goto constants.js and export database name
+then come to index
+import that db file and run the function example connectDB()
+also import dotenv and by doing dotenv.config ......
+then goto the directory file ex: cd src then do npm run dev 
+you will see message wriiten in db file i.e mongodb connection successful
