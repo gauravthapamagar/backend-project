@@ -68,6 +68,7 @@ create .prettierignore
 ////////End of professional backend file folder structure setup///////////
 
 /////////////////DATABASE CONNECTION/////////////////////
+*********HOW TO CONNECT DATABASE IN MERN **************
 
 to enter into mongodb from the atlas we need two things:
 1. you op address must be allowed and you must have correct id and password  
@@ -119,3 +120,113 @@ import that db file and run the function example connectDB()
 also import dotenv and by doing dotenv.config ......
 then goto the directory file ex: cd src then do npm run dev 
 you will see message wriiten in db file i.e mongodb connection successful
+
+/******1. Install Dependencies
+    Run npm install express mongoose dotenv
+2. Setup Environment Variables
+    Create a .env file in the root directory
+    Set PORT=5000 and MONGODB_URI=<your-mongodb-connection-string>
+3. Create a Database Connection File
+    Inside the db folder, create a db.js file
+    Import mongoose and write a function to connect MongoDB
+    Use process.env.MONGODB_URI to connect to the database
+    Log a success message on connection
+    Handle errors properly and exit the process if connection fails 
+    Export the connection function
+4. Export Database Name in Constants File
+    Create constants.js
+    Export DB_NAME with your database name
+5. Setup Main Server File (index.js)
+    Import dotenv, express, and the database connection file
+    Call dotenv.config() to load environment variables
+    Run the connectDB() function to establish the database connection
+    Define the PORT from .env with a fallback
+    Start the server and log a success message
+6. Run the Server
+    Navigate to the src directory using cd src
+    Run npm run dev to start the server
+7. Expected Output
+    Console should display:
+    MongoDB Connected: <your-cluster-url>
+    Server running on port 5000
+    ***********////////
+
+
+*****CUSTOM API RESPONSE AND ERROR HANDLING********
+
+goto app.js
+Note: if async method completes it technically returns promise as well
+
+It's useful to note that async functions return promises, 
+and when using .then() and .catch(), it helps handle the result of these promises (i.e., success or failure).
+
+goto index then write .then() and .catch()
+
+install package:
+    cookie-parser:
+    cors: allows settings for all the cross origin resourse sharing
+
+Middleware: they are the functions that are used to modify the request and response objects or have the access to request and response
+Note: If you are using middlewares most of the time you use app.use other than app.get app.post 
+to apply middleware to all routes or specific routes
+
+Call both packages in app
+
+so data might come from anywhere so we have to do preparation 
+urls, json, forms, etc...
+
+example:middleware like express.urlencoded() is useful to decode characters properly (like %20 for space). when data comes from URLs.
+
+do it in app.js
+
+if data comes from url there may be some issue 
+url has its own encoder that converts the special characters like space=%20
+for that do configuration app.use .....
+
+some middlewares are essential for working with incoming data, 
+e.g., express.json() for parsing JSON data, and express.urlencoded() for parsing URL-encoded form data.
+Middlewares runs in the order they're defined in the app.
+
+middleware example: if we goto /instagram then after going instagram req.send("gaurav") is seen on the profile.
+but during that the function that runs after logging in instagram that checks if user is logged in or if the user is admin
+is an example of middlewares. 
+
+video stopped at 19:15 of video no 9.
+
+starts:
+
+we have studied till this only about req and res but there is also err and next i.e 4elements. (err, req, res, next)
+next: if we use next then we are talking about middlewares
+
+we are interacting with database numerous number of times so instead of writing code several times why dont we create utility file
+that consists of generalized functions.
+so when we need to execute these functions pass the function in the method and then it will execute and pass
+
+GOTO utils folder create file asyncHandler
+
+if you want to standardize the api error and response
+(search on web nodejs api errors)
+
+video stopped at 36:00
+
+create utils file named ApiError to handle all types of error encountered in the website
+
+NOTE: difference between export {anyname}, export const anyname, export default anyname
+export {anyname} :
+import syntax: import {anyname} from ..
+can be multiple exported within same file
+used when you need to export multiple things from same file ///Common use case: api services, utility functions, reusable components
+
+export const anyname:
+import syntax: import {anyname} from ..
+can have multiple exports
+used when you have to declare and export at the same time. // Common use exporting constants , classes, utility functions
+
+export default anyname:
+import syntax: import anyname from 
+can have only one export per file
+used when module is mainly about one thing eg function class or component // Common use Main utility functions, react components ...
+
+similarly create file in utils named apiresponse for handling all the api responses.
+
+now write middleware where when this type of error comes then it always should go through api error.
