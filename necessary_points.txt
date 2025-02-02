@@ -230,3 +230,59 @@ used when module is mainly about one thing eg function class or component // Com
 similarly create file in utils named apiresponse for handling all the api responses.
 
 now write middleware where when this type of error comes then it always should go through api error.
+
+
+/////////////**************USER AND VIDEO MODELS WITH HOOKS AND JWT**********/////////
+
+goto models and create new file user.model.js (you can write any user.js or user.model.js depending upon you)
+also video.model.js
+
+Note:// schema is an Object Data Modeling (ODM) library for MongoDB and Node.js.
+//defines the structure of the documents within mongodb collection.
+
+create schema for both user and model
+
+Note: now we use special package: mongoose-aggregate-paginate-v2
+It allows to write aggregation queries. 
+
+install that package
+It is injected as plugin
+-written before export
+
+import that and added within plugin
+
+now we can write aggregation queries.
+
+video stopped at 23:25
+
+download bcrypt package, jsonwebtoken
+(Bcrypt is a library that helps you to hash your password)
+(jsonwebtoken encodes user info into a token, which can be verified without storing session data on server.)
+
+import both in user.
+
+how to encrypt?
+we have to take help from mongoose hooks
+
+pre hook: when you data is going to be saved, then just before that we can run such that those datas/password are encrypted
+
+Note: these hooks are present mainly in models files in professional code
+
+Note: in arrow function , it doesnot have this reference i.e it doesnot have the knowledge of particular context.
+But in pre hook the need of knowing context is very important.
+
+bcrypt can hash password but it can check password as well
+
+video stops at 37:25
+
+JWT: it is a bearer token. it means whoever has this token then the data is sent to that person. just like the key.
+
+create access token secret in environment variables.
+also create referesh token 
+
+we are using both session and cookies
+access token will not be stored in the database but referesh token will be stored in database
+
+payload: what are the informations that to be put
+
+///////////////*********************END OF THE VIDEO**********///////////////// 
