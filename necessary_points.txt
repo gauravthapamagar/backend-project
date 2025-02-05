@@ -47,7 +47,7 @@ mkdir controllers
 mkdir db
 (Here we write how to connect to the database)
 mkdir middlewares 
-(These are the codes that run in between request and response)
+(These are the codes that run in between request and response)(Ex: janu bhanda aagadi ma sanga milera jaanu)
 mkdir models
 (defines structure of the data and how it interacts with the database)
 mkdir routes
@@ -286,3 +286,147 @@ access token will not be stored in the database but referesh token will be store
 payload: what are the informations that to be put
 
 ///////////////*********************END OF THE VIDEO**********///////////////// 
+
+////////////////********HOW TO UPLOAD FILE IN BACKEND | MULTER
+
+Note: file handling aafnei server ma garidaina mainly , either third party service or aws
+
+Note: file upload is created for separate utility sometimes middleware or utility
+we create this standalone so that we can reuse
+
+similarly we can use this for image, audio, video
+
+when these file upload is completed we inject it as a middleware
+
+first we will look cloudinary
+
+if you are uploading file upload two common packages are used mainly
+1. express file upload
+2. MULTER
+
+MULTER IS ALSO A MIDDLEWARE
+
+npm i cloudinary and npm i multer
+
+NOTE: all the sensitive things are kept towards the environment variables.
+
+Strategy to upload file:
+1. we will make user upload file through multer and keep into our local server temporarily.
+2. after using cloudinary we will take that file from the local storage and deploy/put it into our server.
+(Also we can do this directly by taking user uploaded file from multer to cloudinary and deploy directly) but
+in production grade services temporarily file is taken from user and placed into its own server so that at least if files
+came into our server then we can reattempt for reuploading to the server
+
+now copy the code from cloudinary about , upload, optimization and transform
+
+now we can put cloudinary as anything for example as a service , as a utility
+
+create a cloudinary file in the utils
+If this service is being used then it returns the local file path to us
+server->local->files to cloudinary
+
+if file in the cloudniary is successfully uploaded then our server doesnot need these type of files so we remove from our 
+local server
+
+what do you mean by fs?
+-> in node there is presence of file system
+
+now in the cloudinary middleware add all the things 
+like import and then cloudinary.config 
+
+also at environment variables create cloudinary cloud name, api key and api secret and import them towards cloudinary
+
+we will create a method where in that parameter you will give you the path of that local file then I will upload that 
+if successfully uploaded of that file then unlink that file.
+
+so this file problem is just like that of database such that most problems occurs here. 
+here in that case use try catch     
+
+Note: we can see what are the options using ctrl+ space
+
+what we have done till now is created util file called cloudinary after installing cloudinary and multer
+then we have copied and pasted then cloudinary cloud name, api name, and api secret into the environment variables.
+then written codes in cloudinary to upload on the cloudinary and handle the errors using try catch when file is uploaded
+unsuccessfully.
+
+now next task is to create middleware using multer.
+//**** video ends at 26:40*****/////
+
+now we create middleware using multer. why? no need we can also do simply but now
+
+where we need file upload capabilities we will inject multer there
+
+example it is used in registration form so we will inject there. in login form there is no need so we dont inject
+
+create middleware file named multer.
+
+what we did till now in the concept?
+-> configuration settings on the entire project.
+
+/////////*****HTTP CRASH COURSE*******////////// video no 11
+
+major difference between http and https:
+http: the data in the http are sent as clear texts for example if abc data is sent then there will be abc data 
+https: here it adds one more layer that encrpts the data by placing some key so that it is normally not readable so the data
+can be readable at server or the data from the server gets readable to the client. (not in between)
+
+if you are sending you also send the file information like filename, size, sent at,..... (metadata) these are called http headers
+metadata: key-value sent along with the request and response
+
+headers are used in caching, authentication, manage state
+
+headers category:
+request header: from client
+response header: from server
+representation header: encoding/compression
+payload header: data  payload: fancy name for data
+
+Most common headers:
+accept: it tells which type of data are we going to store
+user-agent: it tells request came from which application ex: data came from postman, or req is sent by browser etc
+authorization: 
+content-type: ex: images, pdf
+cookie: time onto which user will be logged in ...etc
+cache-control: when to expire data ....
+
+video stopped at 13:30
+
+////***COMPLETE GUIDE FOR ROUTER AND CONTROLLER WITH DEBUGGING
+we will learn here how do we write controllers.
+
+the more you write controllers the more your logic building will improve.
+
+Note: steps to create logic building
+1. divide the bigger problem into small chunks of problem then solve that small problem.
+2. solve that problem and then go towards another problem
+
+example: doing leetcodes problem, datastructures problem or solving real world problems
+
+//here we will register the user
+
+create file named user.controller.js in the controllers
+
+now after creating method, now next step is how do method will run (it will run if it hits some kind of url)
+
+so for that we create route folder
+
+now create new file called user.routes.js
+
+so most of the files like routes and controllers are imported in the app.
+routes declaration is done in app.js
+
+how to check if the work done will be get properly or not?
+step 1: open browser goto google
+step 2: download postman
+
+you can check through postman to see if it is working 
+in this case, here at first run the server on terminal npm run dev
+then goto postman copy paste url which you want to check, and make sure to do post method instead of get or any other method
+if the message written on user.controller.js is shown in postman which means it is running without errors
+
+in next video we will remove res.status(200).json({
+        message:"hello i am under water"
+    })
+this code from user register and properly register user
+we will take data from postman like name, email,photos 
+we will see how we taked to server accept it and add it to the database
