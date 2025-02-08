@@ -430,3 +430,93 @@ in next video we will remove res.status(200).json({
 this code from user register and properly register user
 we will take data from postman like name, email,photos 
 we will see how we taked to server accept it and add it to the database
+
+
+//////******LOGIC BUILDING IN BACKEND*******//////
+#Business logic building
+
+now we have to register user 
+break it into small steps and solve the problem
+
+steps:
+1. get user details from frontend
+2. validation 
+3. check if user already exists (username or email)
+4. check for images, check for avatar
+5. upload them to cloudinary, avatar
+6. create user object - create entry in db
+7. remove password and refresh token field from response
+8. check for user creation 
+9. return response
+(if you know to follow steps then steps are the algorithms)
+
+now to check is the req.body is actually taking up data first run server npm run dev
+then goto postman and click raw data select json instead of selecting text
+example write like this on raw. {
+    "email": "gauravthapa926@gmail.com",
+    "password": ""
+}
+
+Note: postman ma url halda euta space pani lagyo bhane message pathauna sakidaina.
+
+Process to receive data send through postman:
+npm run dev
+goto postman copy paste the url and then post method
+then in body select raw and json
+make object and write message
+console log on the controller where you are calling
+you will receive message on vs code
+
+#this is the code on the controller to get message from postman
+const {fullname, email, username, password} = req.body;  
+    console.log("email: ", email)
+
+req.body bata data aairachha
+
+for file handling 
+go directly to the routes
+multer ma bhako upload lai routes ma import garne (userroutes)
+
+Note: .some() function checks if it is true or false when we check using the condition
+
+//validation code 
+if (
+        [fullname, email, username, password].some((field) => field?.trim() === "")
+
+   ){
+        throw new ApiError(400, "all fields are required")
+   }
+
+Note: req.body ma sabai data aaucha but since we used middleware, multer gives feature/access to add fields in the req 
+example: req.file
+
+#tasks upto check for images, check for avatar completed now we have to upload files to the cloudinary video at 34:40
+
+task started:
+
+now import the  cloudinary file which we had already created into the user.controller.js
+
+Note: suppose kunei required field banako cha and then tesko file haru kei katham liyena bhane pakka database ma problem aaucha
+so jaile pani throw error case banaunu parchha
+
+upload on cloudinary ko kaam sakepachhi now goto the next step that is create user object and create entry in db.
+
+how will it be entry in the database?
+import {User} from "../models/user.model.js"; //this is talking with the database
+
+Again point to be noted
+Note:
+1. while working with the database you could potentially get error
+2. database is always in another continent
+
+now check if the user is empty or not
+
+Note:
+mongodb le harek entry ko saath ma euta _id name ko field add garidinchha
+
+// .select() bhanne euta function jasma tyo tyo chiz select garnu sakinchha which we think are to be selected 
+// .select() bhitra pass hunchha string jasma tyo tyo string lekhinchha jun hamilaai chaidaina
+
+Note: jati time you spend on coding the more time you will spend on debugging.....
+
+
