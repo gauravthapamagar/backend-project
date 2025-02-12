@@ -519,4 +519,80 @@ mongodb le harek entry ko saath ma euta _id name ko field add garidinchha
 
 Note: jati time you spend on coding the more time you will spend on debugging.....
 
+////////********HOW TO USE POSTMAN FOR BACKEND*******//////////
 
+Quote: "If any person is thinking that his code is goona run in the first attempt, then either he is inexperienced or 
+severly overconfident" 
+"So whenever you write code always expect that this code will not run" so that it needs some debugging 
+
+professional level ma postman lai pani use garne tarika huncha jun frontend sanga pani share garnu parne hunchha
+there is a thing called collection such that postman collection are shared with the frontend engineers by backend developers/engineers
+
+In postman do it from first:
+1. goto new tab.
+2. select post instead of get
+3. goto body and type form data
+4. you could also send by selecting raw data in json format by doing this {} but json doesnot have option of sending the files  
+5. write all necessary key and values like fullname: gaurav, email: g@g.com
+
+video stopped at 8:20 . 
+
+restart postman from the same place 
+response message that was received was this one. 
+{
+    "success": true,
+    "message": "User does not exist, you can proceed with registration."
+}
+
+****Currently this error has been seen till now.
+Mongodb connection successful !! DB HOST: cluster0-shard-00-01.wxygq.mongodb.net
+Server is running on 8000
+Request body ma bhako: [Object: null prototype] {
+  fullname: 'Gaurav Thapa Magar',
+  email: 'gauravthapa926@gmail.com',
+  password: '12345678',
+  username: 'gauravmgrr'
+}
+email:  gauravthapa926@gmail.com
+file is uploaded on cloudinary http://res.cloudinary.com/dlnmkc7bj/image/upload/v1739038554/nf6sl8r46zq4j83ni5nm.jpg
+file is uploaded on cloudinary http://res.cloudinary.com/dlnmkc7bj/image/upload/v1739038556/pute1ksvhmd0el9kfh6v.jpg
+ValidationError: User validation failed: coverimage: Path `coverimage` is required.
+    at Document.invalidate (G:\All Works\Javascript\backend\node_modules\mongoose\lib\document.js:3334:32)
+    at G:\All Works\Javascript\backend\node_modules\mongoose\lib\document.js:3095:17
+    at G:\All Works\Javascript\backend\node_modules\mongoose\lib\schemaType.js:1407:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+
+
+Note: You can check if the images or files has been uploaded or not in the media explorer
+
+started:
+
+our works:
+1. cloudinary ko purei ko purei response lai console.log garera hernu paryo
+2. console.log for req.body in the usercontrollers
+3. req.files lai pani print garayera herney
+
+video stopped at 17:20
+we will again try to reupload the data from the postman 
+
+
+Now summarization of controllers is done and written in the comments in the controllers
+
+
+//////////////**************IMPORTANT POSTMAN SECTION***********/////////////
+//Postman collections
+create black collection
+click on add a request
+then change name of new request
+copy paste url and then save
+
+copy http://localhost:8000/api/v1 and go to environments
+
+linking between collections and environments can be done at the no environments section and click the name of the folder of 
+the collection where you want to place your variable
+
+now in user register after linking with the environment variable you can use {{}} double curly brace and /users/register as it is.
+
+aba try garne euta tei link ma form data ma key value halera
+if run successfully you can save that process so that in the future if we want to upload similar kinds of data we can simply change
+the fields of the data (or key value pairs )

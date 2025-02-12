@@ -19,7 +19,8 @@ const uploadOnCloudinary = async (localFilePath) =>{
             resource_type: "auto"
         })
         //file have been uploaded successfully
-        console.log("file is uploaded on cloudinary", response.url);//this is for us now we have to return for user also hence
+       // console.log("file is uploaded on cloudinary", response.url);//this is for us now we have to return for user also hence
+       fs.unlinkSync(localFilePath) //cloudinary ma upload bhaisakepachi locally saved file lai remove garcha to remove wastage
         return response;
 
         

@@ -40,9 +40,8 @@ const userSchema = new Schema (
         type: String, // cloudinary URL
         required: true,
     },
-    coverimage: {
+    coverImage: {
         type: String, 
-        required: true,
     },
     watchHistory: [{
         type: Schema.Types.ObjectId,
