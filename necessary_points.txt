@@ -596,3 +596,38 @@ now in user register after linking with the environment variable you can use {{}
 aba try garne euta tei link ma form data ma key value halera
 if run successfully you can save that process so that in the future if we want to upload similar kinds of data we can simply change
 the fields of the data (or key value pairs )
+
+/////*******START OF THE NEW VIDEO******////////
+#ACCESS REFRESH TOKEN, MIDDLEWARES, AND COOKIES IN BACKEND
+
+Note: Difference between access token and referesh token
+access token is short lived refresh token is long lived. (expired in short/long term)
+
+example:
+whenever you have access token then any feature where there is your authentication requirement
+you can access those features.
+
+but if login session is 15min then again you have to enter the id after 15mins. here comes
+referesh token
+
+this refresh token is both in database and the user. so we validate user using access token
+but when they have refresh token then no need to reenter the password , so it makes to hit
+the endpoint and verifies the user refresh token with the refresh token in the database if 
+it is same then new access token is given to the user based on the refresh token if it is 
+expired.
+
+////Now we make user login 
+
+Note: findOne() function:- it is used to find a single document in the database that matches
+the query. single document means that if it finds data that matches with the query it returns
+single document even if there are multiple matching documents
+
+Note: javascript ma if you think that something function processing takes time always use await before it.
+
+//Here we completed logged in user functionality till now. timestamp = 33:00
+after this we will do how user will be logged out and how the routes will be set. 
+
+write middleware for authentication
+-it verifies it user is there or not
+
+Note: vs code shortcut. if you select all and then write try catch and then enter then automatically it will come in the try catch block    
