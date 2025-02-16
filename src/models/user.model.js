@@ -75,7 +75,7 @@ userSchema.pre("save", async function(next) {
 //this is the way to inject the method in the schema
 userSchema.methods.isPasswordCorrect = async function(password){
     //password hasing is cryptography so it will take time so await that
-   return await bcrypt.compare(password, this.password)
+   return await bcrypt.compare(String(password), String(this.password))
 }
 
 userSchema.methods.generateAccessToken = function(){
