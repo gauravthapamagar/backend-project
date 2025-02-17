@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from "cors";
 //cookieparser work: from our server we can access user cookies and also can set cookies
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'; //using this we have cookie access examples can be seen at user.controllers.js
 
 const app = express();
 

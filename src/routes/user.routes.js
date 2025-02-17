@@ -1,6 +1,6 @@
 import { Router } from "express";
-import {registerUser}  from "../controllers/user.controller.js"
-
+import {registerUser,loginUser, logoutUser, refreshAccessToken}  from "../controllers/user.controller.js"
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 import {upload} from "../middlewares/multer.middleware.js"
 const router = Router();
 
@@ -22,6 +22,13 @@ router.route("/register").post(
 
     registerUser
 )
+//added new route 
+//yo bhaneko chei if yo route ma aayo bhaane kun method use garne ta jastei ki post, get
+router.route("/login").post(loginUser)
 
-
+//secured routes
+//if you want to inject middleware then write it betwenn route and method call
+//here verifyJWT is middleware
+router.route("/logout").post(verifyJWT, logoutUser)
+router.route("/refresh-token").post(refreshAccessToken)
 export default router   

@@ -631,3 +631,18 @@ write middleware for authentication
 -it verifies it user is there or not
 
 Note: vs code shortcut. if you select all and then write try catch and then enter then automatically it will come in the try catch block    
+
+Note: to run login or to register the user in the backend just follow these steps:
+
+1. start the backend server: npm run dev
+2. goto postman and then on register write the key and value and click on send. 
+3. after it is completely stored in the database 
+
+
+//////******ACCESS TOKEN AND REFRESH TOKEN*****//////
+
+Note: Mainly access token and refresh token ko kaam bhaneko nei users le harek choti aafno email ra password nahalna paaows
+
+we will create an endpoint where could refresh their token
+
+video stopped at: 18:00
