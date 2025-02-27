@@ -412,5 +412,6 @@ export {registerUser,
     changeUserPassword, 
     getCurrentUser, 
     updateAccountDetails, 
-    updateUserAvatar
+    updateUserAvatar,
+    updateUserCoverImage
 }   
