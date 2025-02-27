@@ -5,6 +5,9 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt, { decode } from "jsonwebtoken";
 
+//asyncHandler automatically catches error and passes it to express error handling middlewares.
+//it avoids repetitive try catch blocks, keep code clean and readable.
+// normally if only async is used then these all happens which is resolved by asynchandler which is one of the feature of express.
 const generateAccessandRefreshTokens = async(userId) => {
     //try catch is used in order to prevent from getting error
     try {
@@ -295,4 +298,119 @@ const refreshAccessToken = asyncHandler(async(req, res) => {
 
 })
 
-export {registerUser, loginUser,logoutUser, refreshAccessToken}   
+//change user password
+const changeUserPassword = asyncHandler(async(req,res) => {
+    const {oldPassword, newPassword} = req.body
+    const User = await User.findById(req.user?._id)
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
+    if(!isPasswordCorrect){
+        throw new ApiError(400, "Invalid old password")
+    }
+    user.password = newPassword
+    await user.save({validateBeforeSave: false})
+
+    return res.status(200).json(new ApiResponse(200, {}, "Password changed successfully"))
+})
+//get current user
+const getCurrentUser = asyncHandler(async(req, res) => {
+    return res.status(200).json(200, req.user, "Current user fetched successfully")
+})
+//update the account details of the user in the database
+const updateAccountDetails = asyncHandler(async(req, res) => {
+    const {fullname, email} = req.body
+    if (!fullname || !email) {
+        throw new ApiError(400, "All fields are required")
+        
+    }
+    const user = User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            //$set updates specific field without modifying the entire document
+            $set:{
+                fullname: fullname,
+                email: email,
+
+            },
+
+
+        },
+        // this is used to return the updated document instead of the old one. It is used in findByIdAndUpdate function
+        {
+            new:true
+        }
+    ).select("-password")
+    return res
+    .status(200)
+    .json(new ApiResponse(200, user, "Account details updated successfully"))
+})
+
+//file upload features
+//you need to take care of the middlewares
+const updateUserAvatar = asyncHandler(async(req, res) => {
+    const avatarLocalPath = req.file?.path
+    if (!avatarLocalPath) {
+        throw new ApiError(400, "Avatar file missing")
+        
+    }
+
+    const avatar = await uploadOnCloudinary(avatarLocalPath)
+    if (!avatar.url) {
+        throw new ApiError(400, "Error while uploading avatar")
+        
+    }
+
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                avatar: avatar.url
+            }
+        },
+        {new:true}
+    ).select("-password")
+    return res
+    .status(200)
+    .json(new ApiResponse(200, "Cover image updated successfully"))
+
+})
+//update cover image
+const updateUserCoverImage = asyncHandler(async(req, res) => {
+    const coverImageLocalPath = req.file?.path
+    if (!coverImageLocalPath) {
+        throw new ApiError(400, "Cover Image file missing")
+        
+    }
+
+    const coverImage = await uploadOnCloudinary(coverImageLocalPath)
+    if (!coverImage.url) {
+        throw new ApiError(400, "Error while uploading coverImage")
+        
+    }
+
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                avatar: avatar.url
+            }
+        },
+        {new:true}
+    ).select("-password")
+    return res
+    .status(200)
+    .json(new ApiResponse(200, "Cover image updated successfully"))
+
+})
+
+
+
+
+export {registerUser, 
+    loginUser, 
+    logoutUser, 
+    refreshAccessToken, 
+    changeUserPassword, 
+    getCurrentUser, 
+    updateAccountDetails, 
+    updateUserAvatar
+}   

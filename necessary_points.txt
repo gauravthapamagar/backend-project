@@ -646,3 +646,11 @@ Note: Mainly access token and refresh token ko kaam bhaneko nei users le harek c
 we will create an endpoint where could refresh their token
 
 video stopped at: 18:00
+
+///****writing update controllers for users
+
+wriiten controllers for change user password, get current user,  
+video end at 24:00
+
+Note: If you spend time on writing well defined error in your code then during debugging, you can exactly locate the point 
+where there was an error 
